@@ -1,0 +1,17 @@
+language: android
+jdk: openjdk7
+android:
+  components:
+    - build-tools-22.0.1
+    - android-23
+    - extra-android-m2repository
+    - extra-android-support
+git:
+  submodules: false
+before_install:
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule init && git submodule update
+script:
+  - ./gradlew assembleRelease
+before_deploy:
+  - mv app/build/outputs/apk/app-release.apk app/build/outputs/apk/FileExplorer.apk
