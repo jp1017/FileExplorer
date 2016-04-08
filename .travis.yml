@@ -17,10 +17,10 @@ before_install:
 script:
   -  ./gradlew clean build
 before_deploy:
-  - mv app/build/outputs/apk/app-debug.apk app/build/outputs/apk/FileExplorer.apk
+  mv app/build/outputs/apk/app-debug.apk app/build/outputs/apk/FileExplorer.apk
   skip_cleanup: true
   on:
     tags: true
 
 after_deploy:
-- fir p app/build/outputs/apk/FileExplorer.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
+  - fir p app/build/outputs/apk/FileExplorer.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"
