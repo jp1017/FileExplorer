@@ -11,17 +11,16 @@ git:
   submodules: false
 before_install:
   - chmod +x gradlew
-  #- sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-  #- git submodule init && git submodule update
+  - gem install fir-cli
+  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  - git submodule init && git submodule update
 script:
   -  ./gradlew clean build
 before_deploy:
   - mv app/build/outputs/apk/app-debug.apk app/build/outputs/apk/FileExplorer.apk
-deploy:
-  provider: releases
-  api_key:
-    secure: Upv5wE4iGDYICtouho0fUrU/4L8dPohjH8AAfwhoK5puvrr3o7rJBS3eeQwt4+/IZJBzIaF5AW3LcLowKnqJUpiGXBvse02ZUk1yeG2gO3Ypjq3xUtbRn+NsvqlXYdBj0EgG4B7Pv8t3cYakca7Rhvfd0FdWvlfoSll/NnqVm3aqJ/EP5RuvSo3M3kxO8D6qx13MLAEQCHIMYPxCt6sO2iUVKUV2p9nfwRGRq9cUN8P4lFZsWgVhr366B7g9Vhi2sYQjovmKxuJamE1dzwEmmFoO4VQOHgExW3hCJ5Nu2iQ7QQn7fKwa9lpKBqmASz0oXoNHKUDXdXxy/VD8YqjG6aK+4U8ynvFGzVqCeVM34VCWdEyPDG2hGVtJRfP7wcWtOiolBkZ02fzybqH7xPCUdYjD0b73oPSy7MSycfjm4ql3T905uXu9i0SdlUan2TEm4m2oU7MaZ42pPZS9MMbSfuCqOGPYUSUEkMyN5e6LCIbvObSCDv9pAeItk4rCP9NjgVgKo+cp7zm8Y+IdLeZwLLlMYbYRQfMBvLkNg4XQc/ubK17DF63vEgRiOyeQ3ESu/INIAbYeMECbHCVXSWilDQb06pPIPcfwfIq4jO7uNxUugWEP/pWrW7BoV6DmiAKleF0E5T6aj3BLt+iRWxaFN0ZzdZjjIGra1rjE8kAgf0E=
-  file: app/build/outputs/apk/FileExplorer.apk
   skip_cleanup: true
   on:
     tags: true
+
+after_deploy:
+- fir p app/build/outputs/apk/FileExplorer.apk -T $FIR_TOKEN -c "`git cat-file tag $TRAVIS_TAG`"

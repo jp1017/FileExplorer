@@ -1,0 +1,3 @@
+[submodule "FileExplorer"]
+	path = FileExplorer
+	url = git@github.com:jp1017/FileExplorer.git
