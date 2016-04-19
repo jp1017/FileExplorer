@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "net.micode.fileexplorer"
         minSdkVersion 14
         targetSdkVersion 14
         versionCode 1
-        versionName "1.5"
+        versionName "1.6"
     }
 
     buildTypes {

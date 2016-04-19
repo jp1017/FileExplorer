@@ -1,5 +1,6 @@
 language: android
 jdk: openjdk7
+sudo: false
 android:
   components:
   - tools
@@ -13,9 +14,9 @@ before_install:
 - chmod +x gradlew
 - gem install fir-cli
 script:
-- ./gradlew assembleRelease
+- ./gradlew assembleDebug
 before_deploy:
-- mv app/build/outputs/apk/app-release.apk app/build/outputs/apk/FileExplorer.apk
+- mv app/build/outputs/apk/app-debug.apk app/build/outputs/apk/FileExplorer.apk
 deploy:
   provider: releases
   api_key:
